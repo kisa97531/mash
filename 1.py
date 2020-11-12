@@ -1,60 +1,65 @@
-# 18:00
-# jsonase on last script
-# i work 5 hrs is pizdec nahuy
-# Created jsony DXC Aka DuxkHack Aka DuckHack
-# cdz auto gdz
+import json
 import re
+#strings
+i = 1
+def escape_json(unescaped_json: str) -> str:
+    return (
+        re.sub(r'(?<!:)(?<!,)(?<!{)(?<!\[)"(?!:)(?!,)(?!})(?!\])' ," кавычка ",unescaped_json).replace("\\", "\\\\")
+        .replace("\n", "\\n")
+        .replace("\t", "\\t")
+    )
 
-print('Created by Duxk')
-mPatern = r"answer\/multiple"
-gPatern = r"answer\/groups"
-sPatern = r"answer\/single"
-oPatern = r"answer\/order"
-aPatern = r"answer\/match"
-DefPatern = r"\",\"text\":\"..........................................................................................."
-json = input('Paste ur json')
-json = json.split('taskNum')
+raw_json = input("Введите значение JSON: ")
+tasks = json.loads(escape_json(raw_json))
+for task in tasks:
+    answer_type = task["answer"]["type"]
+    if answer_type == "answer/single":
+        right_answer = (task["answer"]["options"][0]["text"])
+        print('Задание№', str(i) + ')', right_answer)
+        i += 1
 
-for i in range(len(json) - 1):
-    if len(re.findall(gPatern, str(json[i]))) == 1:
-        full = re.findall(DefPatern, str(json[i]))
-        for lay in range(len(full)):
-            xc = full[lay]
-            full[lay] = xc[10:-23]
-            full[lay] = full[lay].split('"')[0]
-        print('Задание№', str(i + 1) + ':', ((str(full)[1:-1]).replace("'", '')).replace(',', ''))
 
-    elif len(re.findall(sPatern, str(json[i]))) == 1:
-        SoloPatern = r"ns\":\[{\"id\":\"......\",\"text\":\"............................................................................................."
-        full = re.findall(SoloPatern, str(json[i]))
-        full = str(full)[28:-1]
-        full = full.split('"')[1]
-        print('Задание№', str(i + 1) + ':', ((str(full))))
+    elif answer_type == "answer/multiple":
+        print('!!!Сколько написано правильных в задании столько нужно и выбирать начиная с первого!!!\n Обычно 3 правильных ответа\n Относиться только к заданию --->', i)
+        for b in range(len((task["answer"]["options"]))): # находит длинну
+            right_answer = (task["answer"]["options"][b]["text"]) # проходит с 0 до конца и выводит ответы
+            print('Задание№', str(i) + ')', right_answer)
+        i += 1
 
-    elif len(re.findall(mPatern, str(json[i]))) == 1:
-        full = re.findall(DefPatern, str(json[i]))[0:3]
-        for lay in range(len(full)):
-            xc = full[lay]
-            full[lay] = xc[10:-1]
-            full[lay] = full[lay].split('"')[0]
-        print('Задание№', str(i + 1) + ':', ((str(full)[1:-1]).replace("'", '')).replace(',', ''))
 
-    elif len(re.findall(oPatern, str(json[i]))) == 1:
-        full = re.findall(DefPatern, str(json[i]))
-        for lay in range(len(full)):
-            xc = full[lay]
-            full[lay] = xc[10:-1]
-            full[lay] = full[lay].split('"')[0]
-        print('Задание№', str(i + 1) + ':', ((str(full)[1:-1]).replace("'", '')).replace(',', ''))
+    elif answer_type in ["answer/match", "answer/match/timeline"]:
+        for b in range(len((task["answer"]["options"]))):  # находит длинну
+            right_answer = (task["answer"]["options"][b]["text"])  # проходит с 0 до конца и выводит ответы
+            print('Задание№', str(i) + ')', right_answer)
+        i += 1
 
-    elif len(re.findall(aPatern, str(json[i]))) == 1:
-        full = re.findall(DefPatern, str(json[i]))
-        for lay in range(len(full)):
-            xc = full[lay]
-            full[lay] = xc[10:-1]
-            full[lay] = full[lay].split('"')[0]
-        print('Задание№', str(i + 1) + ':', ((str(full)[1:-1]).replace("'", '')).replace(',', ''))
 
-    else:
-        print('Задание№', str(i + 1) + ':', 'IS PIZDOS I CANT CODE IT')
-print('Duxk что ты сделал')
+    elif answer_type in ["answer/number", "answer/string"]:
+        print("Мы в курсе и в поисках решения проблемы")
+        i += 1
+
+    elif answer_type == "answer/groups":
+        for b in range(len((task["answer"]["options"]))):  # находит длинну
+            right_answer = (task["answer"]["options"][b]["text"])  # проходит с 0 до конца и выводит ответы
+            print('Задание№', str(i) + ')', right_answer)
+        i += 1
+
+
+    elif answer_type == "answer/table":
+        print("Мы в курсе и в поисках решения проблемы")
+        i += 1
+
+    elif answer_type == "answer/order":
+        for b in range(len((task["answer"]["options"]))):  # находит длинну
+            right_answer = (task["answer"]["options"][b]["text"])  # проходит с 0 до конца и выводит ответы
+            print('Задание№', str(i) + ')', right_answer)
+        i += 1
+
+
+    elif answer_type == "answer/inline/choice/single":
+        print("Мы в курсе и в поисках решения проблемы")
+        i += 1
+
+    elif answer_type == "answer/gap/match/text":
+        print("Мы в курсе и в поисках решения проблемы")
+        i += 1
