@@ -65,5 +65,5 @@ for task in tasks:
         print('Мы знаем что номер', i ,'не работает и делаем фикс всем городом')
         i += 1
     else:
-        print('Ebat sho za huitu ti vstavil')
-        print('Отпраь модеру свой тест:', 'https://vk.com/sklenov97')
+        print('Ebat sho za huitu ti vstavil v menya')
+        print('Send emu esli baltika 9 budet pofiksim:', 'https://vk.com/sklenov97')
