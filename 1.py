@@ -12,6 +12,7 @@ def escape_json(unescaped_json: str) -> str:
 raw_json = input("Введите значение JSON: ")
 tasks = json.loads(escape_json(raw_json))
 for task in tasks:
+    print('')
     answer_type = task["answer"]["type"]
     if answer_type == "answer/single":
         right_answer = (task["answer"]["options"][0]["text"])
@@ -35,7 +36,7 @@ for task in tasks:
 
 
     elif answer_type in ["answer/number", "answer/string"]:
-        print("Мы в курсе и в поисках решения проблемы")
+        print('Мы знаем что номер', i ,'не работает и делаем фикс всем городом')
         i += 1
 
     elif answer_type == "answer/groups":
@@ -46,7 +47,7 @@ for task in tasks:
 
 
     elif answer_type == "answer/table":
-        print("Мы в курсе и в поисках решения проблемы")
+        print('Мы знаем что номер', i ,'не работает и делаем фикс всем городом')
         i += 1
 
     elif answer_type == "answer/order":
@@ -57,9 +58,12 @@ for task in tasks:
 
 
     elif answer_type == "answer/inline/choice/single":
-        print("Мы в курсе и в поисках решения проблемы")
+        print('Мы знаем что номер', i ,'не работает и делаем фикс всем городом')
         i += 1
 
     elif answer_type == "answer/gap/match/text":
-        print("Мы в курсе и в поисках решения проблемы")
+        print('Мы знаем что номер', i ,'не работает и делаем фикс всем городом')
         i += 1
+    else:
+        print('Ebat sho za huitu ti vstavil')
+        print('Отпраь модеру свой тест:', 'https://vk.com/sklenov97')
